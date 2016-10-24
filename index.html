@@ -1,11 +1,49 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app='saviorApp'>
 <head>
   <meta charset="UTF-8">
   <title>Superhero Phone Book</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+    <body ng-controller='saviorsCtrl as vm'>
+
+      <h2>Saviors</h2>
+      <p>Choose a Heroes from their Home:</p>
+
+<select ng-model="home">
+<option value="savior.home">Red</option>
+<option value="tomato">Blue</option>
+</select>
+
+<div ng-class="home">
+
+  <p>Choose your Hero!</p>
+</div>
+
+
+
+      <form class="search">
+      <label>Search for Hero:<input type="text" ng-model="vm.text"></label>
+    </form>
+      <div class="list" ng-repeat="savior in vm.saviors | filter: vm.text">
+
+        <p>{{$index + 1}}. {{savior.name}} - {{savior.phone}} <button type="button" ng-click="vm.showPhoto({{savior.img_url}})">Photo</button></p>
+      </div>
+
+      <h2>New Savior</h2>
+      <div class="input">
+        <label>Name: <input type="text" ng-model = "vm.newSavior.name"></label><br>
+        <label>Phone:<input type="text" ng-model = "vm.newSavior.phone"></label><br>
+        <label>Home:<input type="text" ng-model = "vm.newSavior.home"></label><br>
+        <label>Photo:<input type="text" ng-model = "vm.newSavior.img_url"></label><br>
+        <button type="button" ng-click="vm.addSavior()">Add Savior</button>
+        <p>User input: {{vm.newSavior}}</p>
+      </div>
+
+
+    <img ng-src="{{vm.img_url}}">
+
 
   <script src="app.js"></script>
 </body>
